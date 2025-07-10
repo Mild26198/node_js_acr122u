@@ -61,3 +61,11 @@
 
 - รองรับเฉพาะบัตร MIFARE Classic
 - ต้องใช้เครื่องอ่าน ACR122U ที่เชื่อมต่อกับเครื่อง 
+
+## ดาวน์โหลดไดรเวอร์ ACR122U (Windows)
+
+- **MSI Installer for PC/SC Driver**
+- ขนาดไฟล์: 5.22 MB
+- เวอร์ชัน: 4.2.8.0 (20-Mar-2018)
+- รองรับ: Windows® XP, Vista, 7, 8, 8.1, 10, 11, Server 2003, 2008, 2008 R2, 2012, 2012 R2, 2016 R2
+- ดาวน์โหลด: [ACS Unified MSI 4.2.8.0 (RAR)](https://www.acs.com.hk/download-driver-unified/9840/ACS-Unified-MSI-4280.rar) 
