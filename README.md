@@ -62,10 +62,30 @@
 - รองรับเฉพาะบัตร MIFARE Classic
 - ต้องใช้เครื่องอ่าน ACR122U ที่เชื่อมต่อกับเครื่อง 
 
-## ดาวน์โหลดไดรเวอร์ ACR122U (Windows)
+## ดาวน์โหลดไดรเวอร์ ACR122U
 
+### Windows
 - **MSI Installer for PC/SC Driver**
 - ขนาดไฟล์: 5.22 MB
 - เวอร์ชัน: 4.2.8.0 (20-Mar-2018)
 - รองรับ: Windows® XP, Vista, 7, 8, 8.1, 10, 11, Server 2003, 2008, 2008 R2, 2012, 2012 R2, 2016 R2
-- ดาวน์โหลด: [ACS Unified MSI 4.2.8.0 (RAR)](https://www.acs.com.hk/download-driver-unified/9840/ACS-Unified-MSI-4280.rar) 
+- ดาวน์โหลด: [ACS Unified MSI 4.2.8.0 (RAR)](https://www.acs.com.hk/download-driver-unified/9840/ACS-Unified-MSI-4280.rar)
+
+### Linux
+- **PC/SC Driver Installer**
+- ขนาดไฟล์: 2.82 MB
+- เวอร์ชัน: 1.1.11 (28-Mar-2024)
+- รองรับ: Linux®
+- ดาวน์โหลด: [acsccid-linux-bin-1.1.11-20240328.zip](https://www.acs.com.hk/download-driver-unified/14214/acsccid-linux-bin-1.1.11-20240328.zip)
+
+### macOS
+- **PC/SC Driver Installer**
+- ขนาดไฟล์: 279.71 KB
+- เวอร์ชัน: 1.1.11.1 (26-Aug-2024)
+- รองรับ: macOS®
+- ดาวน์โหลด: [acsccid-macosx-bin-1.1.11.1-20240826.zip](https://www.acs.com.hk/download-driver-unified/13549/acsccid-macosx-bin-1.1.11.1-20240826.zip)
+
+## เอกสารประกอบ
+
+- [Technical Specification of ACR122U NFC Contactless Smart Card Reader (PDF)](https://www.acs.com.hk/download-manual/418/TSP-ACR122U-3.06.pdf)
+- [API Driver Manual of ACR122U NFC Contactless Smart Card Reader (PDF)](https://www.acs.com.hk/download-manual/419/API-ACR122U-2.04.pdf) 
