@@ -1,0 +1,24 @@
+{
+  "name": "nodejs_acr122u",
+  "version": "1.0.0",
+  "description": "ACR122U MIFARE Reader/Writer Web Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "nfc",
+    "mifare",
+    "acr122u",
+    "web"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "nfc-pcsc": "^0.8.1"
+  }
+}
