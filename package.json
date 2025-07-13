@@ -8,11 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "pkg package.json --targets node18-win-x64 --output dist/acr122u.exe",
-    "install-service": "node install-service.js",
-    "uninstall-service": "node uninstall-service.js",
-    "build-installer": "node build-installer.js",
-    "service-manager": "node service-manager.js"
+    "build": "pkg package.json --targets node18-win-x64 --output dist/acr122u.exe"
   },
   "keywords": [
     "nfc",
@@ -38,7 +34,14 @@
     "assets": [
       "public/**/*",
       "views/**/*",
-      "*.html"
+      "*.html",
+      "node_modules/@pokusew/pcsclite/build/Release/pcsclite.node"
+    ],
+    "scripts": [
+      "server.js",
+      "app.js",
+      "nfc.js",
+      "routes/**/*.js"
     ]
   }
 }

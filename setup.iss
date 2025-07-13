@@ -15,37 +15,71 @@ ArchitecturesInstallIn64BitMode=x64
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "installservice"; Description: "Install as Windows Service"; GroupDescription: "Service Installation"; Flags: checkedonce
 
 [Files]
-Source: "server.js"; DestDir: "{app}"; Flags: ignoreversion
-Source: "app.js"; DestDir: "{app}"; Flags: ignoreversion
-Source: "nfc.js"; DestDir: "{app}"; Flags: ignoreversion
-Source: "package.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "package-lock.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "install-service.js"; DestDir: "{app}"; Flags: ignoreversion
-Source: "uninstall-service.js"; DestDir: "{app}"; Flags: ignoreversion
+; Main executable
+Source: "dist\acr122u.exe"; DestDir: "{app}"; Flags: ignoreversion
+
+; Service scripts
+Source: "setup-files\install-service.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "setup-files\uninstall-service.bat"; DestDir: "{app}"; Flags: ignoreversion
+
+; Native modules
+Source: "node_modules\@pokusew\pcsclite\build\Release\pcsclite.node"; DestDir: "{app}\node_modules\@pokusew\pcsclite\build\Release"; Flags: ignoreversion
+
+; Required node_modules (only the essential ones)
+Source: "node_modules\nfc-pcsc\**"; DestDir: "{app}\node_modules\nfc-pcsc"; Flags: ignoreversion recursesubdirs
+Source: "node_modules\@pokusew\pcsclite\**"; DestDir: "{app}\node_modules\@pokusew\pcsclite"; Flags: ignoreversion recursesubdirs
+Source: "node_modules\node-windows\**"; DestDir: "{app}\node_modules\node-windows"; Flags: ignoreversion recursesubdirs
+
+; Web files
 Source: "public\*"; DestDir: "{app}\public"; Flags: ignoreversion recursesubdirs
 Source: "routes\*"; DestDir: "{app}\routes"; Flags: ignoreversion recursesubdirs
-Source: "node_modules\*"; DestDir: "{app}\node_modules"; Flags: ignoreversion recursesubdirs
 
 [Icons]
-Name: "{group}\NodeJS ACR122U Service"; Filename: "{app}\server.js"; IconFilename: "{app}\public\favicon.ico"
-Name: "{group}\Install Service"; Filename: "{app}\install-service.js"
-Name: "{group}\Uninstall Service"; Filename: "{app}\uninstall-service.js"
+Name: "{group}\ACR122U Access Control"; Filename: "{app}\acr122u.exe"
+Name: "{group}\Services"; Filename: "services.msc"
 Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\NodeJS ACR122U"; Filename: "{app}\server.js"; IconFilename: "{app}\public\favicon.ico"; Tasks: desktopicon
 
 [Run]
-Filename: "cmd.exe"; Parameters: "/c cd /d ""{app}"" && node install-service.js"; Description: "Install as Windows Service"; Flags: runhidden; Tasks: installservice
-Filename: "http://localhost:3007"; Description: "Open Web Interface"; Flags: postinstall shellexec
+; ติดตั้ง Service ผ่าน batch file
+Filename: "{app}\install-service.bat"; StatusMsg: "กำลังติดตั้ง Service..."; Flags: runhidden waituntilterminated; Tasks: installservice
+; เปิด services.msc
+Filename: "services.msc"; Description: "เปิดตัวจัดการ Services"; Flags: postinstall shellexec nowait unchecked
+; เปิดเว็บ
+Filename: "http://localhost:3007"; Description: "เปิดเว็บแอพพลิเคชัน"; Flags: postinstall shellexec unchecked
 
 [UninstallRun]
-Filename: "cmd.exe"; Parameters: "/c cd /d ""{app}"" && node uninstall-service.js"; Flags: runhidden
+; ถอนการติดตั้ง Service ผ่าน batch file
+Filename: "{app}\uninstall-service.bat"; StatusMsg: "กำลังถอนการติดตั้ง Service..."; Flags: runhidden waituntilterminated
 
 [Code]
+function CheckPort3007(): Boolean;
+var
+  ResultCode: Integer;
+begin
+  Result := False;
+  if Exec(ExpandConstant('{cmd}'), '/c netstat -an | find "3007"', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+  begin
+    Result := (ResultCode = 0);
+  end;
+end;
+
 function InitializeSetup(): Boolean;
 begin
   Result := True;
+  
+  // ตรวจสอบ Port 3007
+  if CheckPort3007() then
+  begin
+    if MsgBox('Port 3007 กำลังถูกใช้งานอยู่' + #13#10 +
+              'การติดตั้งอาจทำให้เกิดปัญหาได้' + #13#10#13#10 +
+              'ต้องการดำเนินการติดตั้งต่อหรือไม่?', 
+              mbConfirmation, MB_YESNO) = IDNO then
+    begin
+      Result := False;
+      Exit;
+    end;
+  end;
 end; 
