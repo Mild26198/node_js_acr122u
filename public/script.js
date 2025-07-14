@@ -142,14 +142,14 @@ async function readUIDLE() {
     const resultDiv = document.getElementById('uidLEResult');
     resultDiv.style.display = 'block';
     resultDiv.className = 'result'; // reset class
-    resultDiv.textContent = 'Reading UID (Little Endian)...';
+    resultDiv.textContent = 'Reading UID+Card number...';
     try {
         const response = await fetch('/read-uid-le');
         const data = await response.json();
         if (data.success) {
             resultDiv.className = 'result success';
             // แก้ไขตรงนี้ให้แสดงทั้ง hex และ decimal
-            resultDiv.textContent = 'UID (Little Endian): ' + data.uid_le + ' (Decimal: ' + data.decimal + ')';
+            resultDiv.textContent = 'UID: ' + data.uid + ' \nCard number: ' + data.decimal ;
         } else {
             resultDiv.className = 'result error';
             resultDiv.textContent = 'Error: ' + data.error;

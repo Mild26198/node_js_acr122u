@@ -25,6 +25,14 @@ function initializeNFC() {
             reader.on('error', err => {
                 console.error('Reader error:', err);
             });
+            reader.on('end', () => {
+                console.log(`Reader removed: ${reader.reader.name}`);
+                readers.delete(reader.reader.name);
+                if (currentReader && currentReader.reader.name === reader.reader.name) {
+                    currentReader = null;
+                    currentCard = null;
+                }
+            });
         });
         nfc.on('error', err => {
             console.error('NFC error:', err);

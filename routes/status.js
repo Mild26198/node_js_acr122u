@@ -60,7 +60,7 @@ router.get('/read-uid-le', (req, res) => {
     const uid = currentCard.uid;
     const leUid = uid.match(/.{1,2}/g).reverse().join('');
     const decimal = parseInt(leUid, 16);
-    res.json({ success: true, uid_le: leUid, decimal });
+    res.json({ success: true, uid: uid, decimal });
 });
 
 module.exports = router; 
